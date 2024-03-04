@@ -1,0 +1,42 @@
+<summary>Todos</summary>
+<!-- @defer (on interaction(trigger)) {
+<ul>
+  @for(todo of query.data() | async; track todo.id) {
+  <li>{{ todo.title }}</li>
+  }
+</ul>
+} @placeholder {
+<p>List of todos</p>
+} @loading {
+<p>Loading...</p>
+} @error {
+<p>Error: {{ query.error() }}</p>
+} -->
+<input
+  (input)="setSearchString($event)"
+  [value]="search()"
+  type="text"
+  placeholder="Type to search..."
+/>
+<button style="margin-top: 1rem" (click)="onAddTodo()">Add Todo</button>
+<button #trigger>Load</button>
+@defer (on hover(hover)) {
+<ul>
+  @for(todo of filteredTodos() ; track todo.id) {
+  <app-todo [todo]="todo"></app-todo>
+  } @empty {
+  <div
+    style="
+      display: flex;
+      justify-content: center;
+      border: 2px solid whitesmoke;
+      background-color: beige;
+    "
+  >
+    <p>No results...</p>
+  </div>
+  }
+</ul>
+}@placeholder {
+<div #hover>Hover here to load</div>
+}
